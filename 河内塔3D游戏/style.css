@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft Yahei", sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #87ceeb, #e6e6fa);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+}
+
+/* 控制面板 */
+.control-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 30px;
+    background: rgba(255,255,255,0.3);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+#diskSlider {
+    width: 120px;
+    cursor: pointer;
+}
+
+.btn-group button {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #3498db;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: 0.3s;
+}
+
+.btn-group button:hover {
+    background: #2980b9;
+}
+
+.btn-group button:disabled {
+    background: #95a5a6;
+    cursor: not-allowed;
+}
+
+/* 3D游戏容器 */
+.game-box {
+    perspective: 1000px;
+    margin: 40px auto;
+}
+
+.peg-container {
+    display: flex;
+    justify-content: space-around;
+    transform-style: preserve-3d;
+    transform: rotateX(15deg);
+    height: 260px;
+    align-items: flex-end;
+}
+
+/* 柱子样式 3D */
+.peg {
+    width: 16px;
+    height: 220px;
+    background: linear-gradient(#deb887, #8b4513);
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    position: relative;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+/* 圆盘样式 3D */
+.disk {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 28px;
+    border-radius: 14px;
+    background: linear-gradient(#ffffff, #ff6b6b, #d63031);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.disk.selected {
+    transform: translateX(-50%) translateY(-20px) translateZ(30px);
+    box-shadow: 0 8px 20px rgba(255,215,0,0.6);
+}
+
+/* 提示文字 */
+.warn-text {
+    color: #e74c3c;
+    font-size: 1.2rem;
+    height: 30px;
+    margin-top: 10px;
+    animation: shakeWarning 0.5s ease;
+    opacity: 0;
+}
+
+.win-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: bold;
+    color: #27ae60;
+    display: none;
+    animation: glowWin 1s infinite alternate;
+    text-shadow: 0 0 20px #fff;
+}
+
+/* 关键帧动画 必做要求 */
+@keyframes shakeWarning {
+    0%,100% { transform: translateX(0); opacity:1; }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+@keyframes glowWin {
+    from { text-shadow: 0 0 15px #ffd700; }
+    to { text-shadow: 0 0 30px #ffd700, 0 0 45px #ff6b6b; }
+}
+
+@keyframes diskFloat {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-15px); }
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+    .peg-container { height: 200px; }
+    .peg { height: 170px; }
+    h1 { font-size: 1.8rem; }
+}
